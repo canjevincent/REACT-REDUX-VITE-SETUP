@@ -1,0 +1,23 @@
+-----React Setup-----
+=====================
+
+# Install React with Vite
+  "npm create vite@latest 'folder_name' or '. for current folder' "
+# Need to install the following packages: create-vite@5.0.0 Ok to proceed? (y) y
+  "choose y = yes"
+# Select Framework
+  "select react"
+# Select variant
+  "choose javascript"
+# Install Node Js
+  "npm install"
+# Run environment
+  "npm run dev"
+# Delete all file below src folder
+  Retain: App.jsx index.css main.jsx
+
+-----Redux Setup-----
+=====================
+
+# Install redux and redux toolkit
+  "npm install @reduxjs/toolkit react-redux"
