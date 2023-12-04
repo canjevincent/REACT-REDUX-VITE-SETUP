@@ -11,6 +11,8 @@
   "choose javascript"
 # Install Node Js
   "npm install"
+# Install React Router
+  "npm install react-router-dom"
 # Run environment
   "npm run dev"
 # Delete all file below src folder
@@ -21,3 +23,12 @@
 
 # Install redux and redux toolkit
   "npm install @reduxjs/toolkit react-redux"
+
+-----Other Package-----
+=======================
+
+# Install Axios
+  "npm install axios"
+
+# Install date-fns
+  "npm install date-fns"

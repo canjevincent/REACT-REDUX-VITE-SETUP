@@ -1,30 +1,43 @@
-import { useSelector } from "react-redux"
-import { selectAllPosts } from "./postsSlice"
-import PostAuthor from "./PostAuthor"
-import TimeAgo from "./TimeAgo"
-import ReactionButtons from "./ReactionButton"
+import { useSelector, useDispatch } from "react-redux";
+import { selectAllPosts, getPostsStatus, getPostsError, fetchPosts } from "./postsSlice";
+import { useEffect, useRef } from "react";
+import PostsExcerpt from "./PostsExcerpt";
 
 const PostsList = () => {
+  // Note: Apply useRef to trigger useEffect once, because of react 18 new update
+
+  const dispatch = useDispatch()
+  const effectRan = useRef(false)
+
   const posts = useSelector(selectAllPosts)
+  const postsStatus = useSelector(getPostsStatus)
+  const error = useSelector(getPostsError)
 
-  const orderedPosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date))
+  useEffect(() => {
+    // Note: wrap with usseRef boolean to trigger once  
+    if (effectRan.current === false){
+      if(postsStatus === "idle"){
+        dispatch(fetchPosts())
+      }
+      return () => {effectRan.current = true}
+    }
 
-  const renderedPosts = orderedPosts.map(post => (
-    <article key={post.id}>
-      <h3>{post.title}</h3>
-      <p>{post.content.substring(0,100)}</p>
-      <p className="postCredit">
-        <PostAuthor userId={post.userId}/>
-        <TimeAgo timestamp={post.date}/>
-      </p>
-      <ReactionButtons post={post}/>
-    </article>
-  ))
+  }, [postsStatus, dispatch])
+
+  let content
+  if (postsStatus === "loading") {
+    content = <p>"Loading..."</p>
+  } else if (postsStatus === "succeeded") {
+    const orderedPosts = posts.slice().sort((a,b) => b.date.localeCompare(a.date))
+    content = orderedPosts.map(posts => <PostsExcerpt key={posts.id} posts={posts} />)
+  } else if (postsStatus === "failed") {
+    content = <p>{error}</p>
+  }
 
   return (
     <section>
       <h2>Posts</h2>
-      {renderedPosts}
+      {content}
     </section>
   )
 }

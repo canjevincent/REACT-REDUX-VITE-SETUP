@@ -1,15 +1,25 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css' 
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
 
-import { store } from './app/store'
-import { Provider } from 'react-redux'
+import "./index.css"; 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+import { store } from "./app/store.js";
+import { Provider } from "react-redux";
+import { fetchUsers } from "./features/users/usersSlice.js";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+store.dispatch(fetchUsers());
+
+ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Router>
+        <Routes>
+          <Route path="/" element={<App />} />
+        </Routes>
+      </Router>
     </Provider>
   </React.StrictMode>,
-)
+  document.getElementById("root")
+);
