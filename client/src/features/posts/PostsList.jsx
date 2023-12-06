@@ -6,23 +6,23 @@ import PostsExcerpt from "./PostsExcerpt";
 const PostsList = () => {
   // Note: Apply useRef to trigger useEffect once, because of react 18 new update
 
-  const dispatch = useDispatch()
-  const effectRan = useRef(false)
+  // const dispatch = useDispatch()
+  // const effectRan = useRef(false)
 
   const posts = useSelector(selectAllPosts)
   const postsStatus = useSelector(getPostsStatus)
   const error = useSelector(getPostsError)
 
-  useEffect(() => {
-    // Note: wrap with usseRef boolean to trigger once  
-    if (effectRan.current === false){
-      if(postsStatus === "idle"){
-        dispatch(fetchPosts())
-      }
-      return () => {effectRan.current = true}
-    }
+  // useEffect(() => {
+  //   // Note: wrap with usseRef boolean to trigger once  
+  //   if (effectRan.current === false){
+  //     if(postsStatus === "idle"){
+  //       dispatch(fetchPosts())
+  //     }
+  //     return () => {effectRan.current = true}
+  //   }
 
-  }, [postsStatus, dispatch])
+  // }, [postsStatus, dispatch])
 
   let content
   if (postsStatus === "loading") {
@@ -36,7 +36,6 @@ const PostsList = () => {
 
   return (
     <section>
-      <h2>Posts</h2>
       {content}
     </section>
   )
