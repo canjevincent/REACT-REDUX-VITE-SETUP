@@ -32,3 +32,9 @@
 
 # Install date-fns
   "npm install date-fns"
+
+# Install Json Server
+  "npm install json-server"
+  - #To run json server
+    "npx json-server --watch data/db.json --port 3000" to run it locally
+    "json-server --watch data/db.json --port 3500" if you install it globally with -g flag

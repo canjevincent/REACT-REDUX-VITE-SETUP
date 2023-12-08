@@ -6,12 +6,16 @@ import "./index.css";
 
 import { store } from "./app/store.js";
 import { Provider } from "react-redux";
-import { fetchPosts } from "./features/posts/postsSlice.js";
-import { fetchUsers } from "./features/users/usersSlice.js";
+// import { fetchPosts } from "./features/posts/postsSlice.js";
+// import { fetchUsers } from "./features/users/usersSlice.js";
+import { extendedApiSlice } from "./features/posts/postsSlice.js";
+import { usersApiSlice } from './features/users/usersSlice';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-store.dispatch(fetchPosts());
-store.dispatch(fetchUsers());
+// store.dispatch(fetchPosts());
+store.dispatch(extendedApiSlice.endpoints.getPosts.initiate());
+store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
+// store.dispatch(fetchUsers());
 
 // As of React 18
 const root = ReactDOM.createRoot(document.getElementById('root'))
